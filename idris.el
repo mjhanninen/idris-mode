@@ -1,98 +1,56 @@
-(defvar idris-identifier-face
-  'default
-  "The face to highlight idris identifiers with.")
-
-(defvar idris-keyword-face
-  'font-lock-keyword-face
-  "The face to highlight idris keywords with.")
-
-(defvar idris-module-face
-  'font-lock-variable-name-face
-  "The face to highlight module names with.")
-
-(defvar idris-directive-face
-  'font-lock-keyword-face
-  "The face to highlight directives.")
-
-(defvar idris-directive-argument-face
-  'font-lock-preprocessor-face
-  "The face to highlight arguments to directives.")
-
-(defvar idris-definition-face
-  'font-lock-function-name-face
-  "The face to highlight things being defined in.")
-
-(defvar idris-parameter-face
-  'font-lock-constant-face
-  "The face to highlight formal parameters to function definitions with.")
-
-(defvar idris-colon-face
-  'font-lock-variable-name-face
-  "The face to highlight ':' in type annotations with.")
-
-(defvar idris-equals-face
-  'font-lock-variable-name-face
-  "The face to highlight '=' in definitions with.")
-
-(defvar idris-operator-face
-  'font-lock-variable-name-face
-  "The face to highlight operators with.")
-
-(defvar idris-definition-keywords
-  '("data" "class" "codata" "record")
-  "Keywords that introduce some identifier.")
-
-(defvar idris-operator-regexp
-  "[-!#$%&\*\+./<=>\?@\\^|~:]+"
-  "A regular expression matching an Idris operator.")
-
 (defvar idris-syntax-table
+  "The syntax table for idris-mode"
   (make-syntax-table))
 
-(modify-syntax-entry ?< "--" idris-syntax-table)
+;; '-' is the first or second character of a comment.
+(modify-syntax-entry ?- "_ 12" idris-syntax-table)
+;; '\n' ends comments.
+(modify-syntax-entry ?\n ">" idris-syntax-table)
 
-; Make the actual mode.
+;; Make the actual mode.
 (define-derived-mode idris-mode fundamental-mode "Idris"
-  (set-syntax-table idris-syntax-table)
-  (idris-load-faces))
+  (setq font-lock-defaults
+    '(nil nil nil nil nil))
+  (set-syntax-table idris-syntax-table))
 
+;; Add the keywords.
 (font-lock-add-keywords 'idris-mode
-  '(("module" . idris-keyword-face)
-     ("namespace" . idris-keyword-face)
-     ("import" . idris-keyword-face)
-     ("where" . idris-keyword-face)
-     ("public" . idris-keyword-face)
-     ("do" . idris-keyword-face)
-     ("case" . idris-keyword-face)
-     ("using" . idris-keyword-face)
-     ("parameters" . idris-keyword-face)
-     ("mutual" . idris-keyword-face)
-     ("if" . idris-keyword-face)
-     ("then" . idris-keyword-face)
-     ("else" . idris-keyword-face)
-     ("prefix" . idris-keyword-face)
-     ("infix" . idris-keyword-face)
-     ("infixr" . idris-keyword-face)
-     ("infixl" . idris-keyword-face)
-     ("pattern" . idris-keyword-face)
-     ("term" . idris-keyword-face)
-     ("syntax" . idris-keyword-face)
-     ("of" . idris-keyword-face)
-     ("intros" . idris-keyword-face)
-     ("rewrite" . idris-keyword-face)
-     ("exact" . idris-keyword-face)
-     ("refine" . idris-keyword-face)
-     ("trivial" . idris-keyword-face)
-     ("focus" . idris-keyword-face)
-     ("try" . idris-keyword-face)
-     ("compute" . idris-keyword-face)
-     ("solve" . idris-keyword-face)
-     ("attack" . idris-keyword-face)
-     ("with" . idris-keyword-face)
-     ("dsl" . idris-keyword-face)
-     ("instance" . idris-keyword-face)
-     ("partial" . idris-keyword-face)
-     ("total" . idris-keyword-face)))
+  '(("module" . font-lock-keyword-face)
+     ("namespace" . font-lock-keyword-face)
+     ("import" . font-lock-keyword-face)
+     ("where" . font-lock-keyword-face)
+     ("public" . font-lock-keyword-face)
+     ("do" . font-lock-keyword-face)
+     ("case" . font-lock-keyword-face)
+     ("using" . font-lock-keyword-face)
+     ("parameters" . font-lock-keyword-face)
+     ("mutual" . font-lock-keyword-face)
+     ("if" . font-lock-keyword-face)
+     ("then" . font-lock-keyword-face)
+     ("else" . font-lock-keyword-face)
+     ("prefix" . font-lock-keyword-face)
+     ("infix" . font-lock-keyword-face)
+     ("infixr" . font-lock-keyword-face)
+     ("infixl" . font-lock-keyword-face)
+     ("pattern" . font-lock-keyword-face)
+     ("term" . font-lock-keyword-face)
+     ("syntax" . font-lock-keyword-face)
+     ("of" . font-lock-keyword-face)
+     ("intros" . font-lock-keyword-face)
+     ("rewrite" . font-lock-keyword-face)
+     ("exact" . font-lock-keyword-face)
+     ("refine" . font-lock-keyword-face)
+     ("trivial" . font-lock-keyword-face)
+     ("focus" . font-lock-keyword-face)
+     ("try" . font-lock-keyword-face)
+     ("compute" . font-lock-keyword-face)
+     ("solve" . font-lock-keyword-face)
+     ("attack" . font-lock-keyword-face)
+     ("with" . font-lock-keyword-face)
+     ("dsl" . font-lock-keyword-face)
+     ("instance" . font-lock-keyword-face)
+     ("partial" . font-lock-keyword-face)
+     ("total" . font-lock-keyword-face)))
 
 ; Automatically use idris-mode for .idr files.
 (push '("\\.idr$" . idris-mode) auto-mode-alist)

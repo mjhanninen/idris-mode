@@ -23,6 +23,7 @@
 (define-derived-mode idris-mode fundamental-mode "Idris"
   (setq font-lock-defaults
     '(nil nil nil nil nil))
+  (setq comment-start "--")
   (set-syntax-table idris-syntax-table))
 
 ;; Add the keywords.

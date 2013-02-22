@@ -3,19 +3,21 @@
 
 ;; '-' is the first and/or second character of a opening comment
 ;; and maybe the third of the closing comment.
-(modify-syntax-entry ?- "_ 123bc" idris-syntax-table)
+(modify-syntax-entry ?- "_ 123" idris-syntax-table)
 ;; '\n' ends comments.
-(modify-syntax-entry ?\n "> c" idris-syntax-table)
+(modify-syntax-entry ?\n ">" idris-syntax-table)
 ;; '{' is a delimiter or possibly the beginning of a comment.
-(modify-syntax-entry ?{ "(}1b" idris-syntax-table)
+;; N.B. for now, multiline delimited comments will be highlighted
+;; as if they are only one line.
+(modify-syntax-entry ?{ "(}1" idris-syntax-table)
 ;; '}' is a delimiter or possibly the end of a comment. N.B. that
 ;; this means that "--"-style comments will be highlighted as if
 ;; it were ended by "-}" if it exists, too; I can't find a good
 ;; workaround for this.
-(modify-syntax-entry ?} "){4b" idris-syntax-table)
+(modify-syntax-entry ?} "){4" idris-syntax-table)
 ;; '_' and '\'' can be in names.
-(modify-syntax-entry ?_ "w")
-(modify-syntax-entry ?' "w")
+(modify-syntax-entry ?_ "w" idris-syntax-table)
+(modify-syntax-entry ?' "w" idris-syntax-table)
 
 ;; Make the actual mode.
 (define-derived-mode idris-mode fundamental-mode "Idris"

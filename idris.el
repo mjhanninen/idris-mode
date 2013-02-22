@@ -13,6 +13,9 @@
 ;; it were ended by "-}" if it exists, too; I can't find a good
 ;; workaround for this.
 (modify-syntax-entry ?} "){4b" idris-syntax-table)
+;; '_' and '\'' can be in names.
+(modify-syntax-entry ?_ "w")
+(modify-syntax-entry ?' "w")
 
 ;; Make the actual mode.
 (define-derived-mode idris-mode fundamental-mode "Idris"

@@ -51,53 +51,6 @@
 
 (modify-syntax-entry ?< "--" idris-syntax-table)
 
-(defun idris-load-faces ()
-  (interactive)
-  (setq font-lock-defaults
-    `('(
-         ;; {- Block comments -}
-         ("\\({-\\)\\(.*\\)\\(-}\\)"
-           (1 ,font-lock-comment-delimiter-face)
-           (2 ,font-lock-comment-face)
-           (3 ,font-lock-comment-delimiter-face))
-         ;; TODO: this doesn't let you do newlines
-         ;; Documentation comments.
-         ("\\(--\\s-*|\\)\\(.*\\)\\(\n\\(--\\)\\(.*\\)\\)*"
-           (1 ,font-lock-comment-delimiter-face)
-           (2 ,font-lock-doc-face)
-           (4 ,font-lock-comment-delimiter-face)
-           (5 ,font-lock-doc-face))
-         ;; Ordinary comments.
-         ("\\(--\\)\s*\\(.*\\)"
-           (1 ,font-lock-comment-delimiter-face)
-           (2 ,font-lock-comment-face))
-         ;; `%access`, `%default`, etc
-         ("^%\\(\\w+\\)\\s-*\\(.+\\)"
-           (1 ,idris-directive-face)
-           (2 ,idris-directive-argument-face))
-         ;; Definitions with keywords.
-         (,(format "\\(%s\\) \\(\\w+\\)" (regexp-opt idris-definition-keywords))
-           (1 ,idris-keyword-face)
-           (2 ,idris-definition-face))
-         ;; Type annotations.
-         ;; TODO: this won't match, e.g. f:a
-         ("^\\s-*\\(\\w+\\)\\s-+\\(:\\)\\s-+"
-           (1 ,idris-definition-face)
-           (2 ,idris-colon-face))
-         ;; Operators
-         (,idris-operator-regexp . ,idris-operator-face)
-         ;; Vanilla definitions with = (and optionally let ... in ...)
-         ;; TODO: clean up how parameters are picked up
-         ("^\\s-*\\(\\w+\\)\s-*\\(.?*\\)\\(=\\)"
-           (1 ,idris-definition-face)
-           (2 ,idris-parameter-face)
-           (3 ,idris-equals-face))
-         ;; Identifiers
-         ("\\w+" . ,idris-identifier-face)
-         ;; TODO: operator definitions.
-         ;; TODO: let ... in ...
-))))
-
 ; Make the actual mode.
 (define-derived-mode idris-mode fundamental-mode "Idris"
   (set-syntax-table idris-syntax-table)
@@ -145,3 +98,4 @@
 (push '("\\.idr$" . idris-mode) auto-mode-alist)
 
 (provide 'idris)
+

@@ -50,7 +50,11 @@
      ("dsl" . font-lock-keyword-face)
      ("instance" . font-lock-keyword-face)
      ("partial" . font-lock-keyword-face)
-     ("total" . font-lock-keyword-face)))
+     ("total" . font-lock-keyword-face)
+     ("data" . font-lock-keyword-face)
+     ("class" . font-lock-keyword-face)
+     ("codata" . font-lock-keyword-face)
+     ("record" . font-lock-keyword-face)))
 
 ; Automatically use idris-mode for .idr files.
 (push '("\\.idr$" . idris-mode) auto-mode-alist)
